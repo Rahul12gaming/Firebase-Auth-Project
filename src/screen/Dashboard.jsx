@@ -2,6 +2,15 @@ import { Avatar, Button, Dropdown } from "antd";
 import { Sidebar } from "../component/Sidebar";
 import { useAuth } from "../Context/authContext";
 import { LineChart } from "../component/LineChart";
+import { IoHome } from "react-icons/io5";
+import { TbBuildingCommunity } from "react-icons/tb";
+import { CiShop } from "react-icons/ci";
+import { MdWebStories } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
+import { HiMiniBars3BottomLeft } from "react-icons/hi2";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase-sdk/firebase";
+import { IoIosArrowDown } from "react-icons/io";
 
 export const Dashboard = () => {
   const { User } = useAuth();
@@ -19,48 +28,97 @@ export const Dashboard = () => {
       label: <Button>Coustomize</Button>,
     },
   ];
+
+  function handleLogout() {
+    signOut(auth);
+  }
   return (
     <>
-      <div>
-        <div className="w-12/12 flex gap-10 bg-white p-6 border border-slate-200 shadow-md justify-center items-center">
-          <Sidebar />
-          <div className="w-6/12 flex items-center justify-between">
+      <div className="flex w-12/12">
+        <div className="w-3/12 bg-blue-500 h-screen p-4 fixed top-0">
+          <div className="flex gap-2 flex-wrap items-center justify-center">
+            <img
+              className="w-16"
+              src="https://babycode.org/InfoWebsite/images/Icon.png"
+              alt=""
+            />
+            <span className="text-lg font-thin text-white ">BabyCode</span>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-6">
+            <div className="w-11/12 ">
+              <a
+                href=""
+                className="bg-gray-900 rounded-md  p-2 text-center text-md font-medium flex text-white items-center gap-2   "
+              >
+                <IoHome size={30} /> Home
+              </a>
+            </div>
+            <div className="w-11/12">
+              <a
+                href=""
+                className="rounded-md  p-2 text-lg font-medium text-white items-center flex gap-2   hover:shadow-xl hover:bg-slate-700"
+              >
+                <TbBuildingCommunity size={30} /> Community
+              </a>
+            </div>
+            <div className="w-11/12 ">
+              <a
+                href=""
+                className="rounded-md  p-2 text-lg font-medium items-center flex gap-2 text-white  hover:shadow-xl hover:bg-slate-700"
+              >
+                <MdWebStories size={30} /> Stories
+              </a>
+            </div>
+            <div className="w-11/12 ">
+              <a
+                href=""
+                className=" rounded-md  p-2 text-lg font-medium items-center text-white flex gap-2   hover:shadow-xl hover:bg-slate-700"
+              >
+                <CiShop size={30} /> Shop
+              </a>
+            </div>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex gap-2 bg-transparent text-white mt-40 p-2 text-center items-center justify-center rounded-md shadow-xl font-bold w-10/12"
+          >
+            <IoLogOut size={30} />
+            LOGOUT
+          </button>
+        </div>
+
+        <div className="w-9/12 relative ml-auto">
+          <header className="bg-white w-12/12 p-4 border border-slate-100 shadow-md flex justify-around">
             <p className="text-xl font-medium">Your Progress Summary</p>
-            <Dropdown
-              menu={{
-                items,
-              }}
-              placement="bottomLeft"
-            >
-              <Avatar src={<img src={User.photoURL} />} size={"large"} />
-            </Dropdown>
-          </div>
-        </div>
 
-        <div className="flex flex-col gap-10 items-center flex-wrap justify-center md:flex-row">
-          <div className="bg-white w-11/12 m-auto shadow-xl p-4 mt-10 rounded-md md:w-6/12">
-            <LineChart />
-          </div>
+            <div>
+              <button className="flex gap-2 items-center">
+                <img src={User.photoURL} className="rounded-full w-10" alt="" />
+                <IoIosArrowDown size={20} color="black" />
+              </button>
+            </div>
+          </header>
 
-          <div className="w-10/12 bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4 items-center text-center md:w-3/12">
-            <h3 className="text-lg font-bold">Practice Mock Test</h3>
-            <p className="text-sm leading-10">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
-              totam cumque. Repellat veritatis, quo obcaecati corporis inventore
-              dignissimos! Fuga libero ratione modi doloribus, nisi nam
-              laboriosam nostrum itaque culpa perferendis!
-            </p>
-            <Button className="w-10/12" type="primary">Start</Button>
+          <div className="w-full flex items-center justify-around">
+            <div className="bg-white w-8/12 mr-auto shadow-xl ml-2 p-4 mt-6 rounded-md md:w-6/12">
+              <LineChart />
+            </div>
+
+            <div className="mr-10 card w-4/12 p-4 justify-center rounded-lg  gap-0 flex flex-col items-center text-center">
+              <p className="text-2xl font-bold text-black">
+                {" "}
+                One Share Can Save Many Lives
+              </p>
+              <button className="w-10/12 p-2 rounded-lg m-auto bg-white text-black font-medium text-lg">
+                Share App
+              </button>
+            </div>
           </div>
 
-        </div>
-
-        <div className="w-11/12 bg-white m-auto mt-10 p-6 shadow-xl rounded-lg">
-          <p className="text-xl p-4">Prepare With ease</p>
-         
-         <div className="flex gap-10 items-center">
-         <main className="  flex flex-wrap gap-20 w-8/12 m-auto justify-center items-center">
-            <div className="card ">
+          <div className="flex gap-10 w-full items-baseline">
+          <main className=" flex flex-wrap gap-20 w-8/12 mr-auto mt-10 bg-white p-4 ml-4 rounded-md shadow-lg justify-center items-center">
+            <div className=" ">
               <img
                 className="w-12/12 m-auto "
                 src="data:image/png;base64,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"
@@ -68,7 +126,7 @@ export const Dashboard = () => {
               />
               <p className="text-lg text-center">Speaking</p>
             </div>
-            <div className="card">
+            <div className="">
               <img
                 className="w-12/12 m-auto "
                 src="data:image/jpeg;base64,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"
@@ -131,15 +189,16 @@ export const Dashboard = () => {
             </div>
           </main>
 
-            <div className="w-10/12 p-4 bg-slate-400 text-white p-4 rounded-lg shadow-lg flex flex-col gap-4 items-center text-center md:w-3/12">
-                <h3 className="text-lg font-bold text-blue-700">Explore Premium Feature With Ease</h3>
-                <p className="text-sm leading-10 ">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam alias, fugit accusamus quia necessitatibus dignissimos fuga dolor, nihil sed, sint officiis distinctio? Voluptas, iure consequuntur expedita aspernatur molestias suscipit modi.</p>
-                <p>Price : $99 - Only</p>
-                <Button type="primary" className="w-10/12">Purchase</Button>
-            </div>
-         </div>
+          <div className="bg-white w-3/12 p-4 mr-4 flex flex-col gap-6 text-center shadow-xl">
+            <h2 className="text-xl font-bold"> PICK MOCK TESTS</h2>
+            <p>You can pick mock test according to convinence , so book now on our app Your First Mock TEst.</p>
+            <Button className="w-10/12 m-auto" type="primary">Start</Button>
+          </div>
+          </div>
+
         </div>
       </div>
     </>
   );
 };
+
